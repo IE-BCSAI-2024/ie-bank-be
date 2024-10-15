@@ -2,6 +2,7 @@ name: ie-bank-backend
 
 on:
   push:
+    branches: [ "dev" ]
   pull_request:
     branches: [ "main" ]
   workflow_dispatch:
@@ -11,11 +12,10 @@ permissions:
   id-token: write
 
 env:
-  BACKEND_WEBAPP_DEV: jseijas-be-dev
+  BACKEND_WEBAPP_DEV: larbibenamour-be-dev # update with my name
 
 jobs:
   build:
-    
     runs-on: ubuntu-latest
     env:
       ENV: ghci
@@ -35,9 +35,7 @@ jobs:
     - name: Lint with flake8
       run: |
         pip install flake8 pytest
-        # stop the build if there are Python syntax errors or undefined names
         flake8 . --count --select=E9,F63,F7,F82 --show-source --statistics
-        # exit-zero treats all errors as warnings. The GitHub editor is 127 chars wide
         flake8 . --count --exit-zero --max-complexity=10 --max-line-length=127 --statistics
     - name: Test with pytest
       run: |
@@ -46,8 +44,7 @@ jobs:
       uses: actions/upload-artifact@v4
       with:
         name: python-app
-        path: |
-          . 
+        path: .
 
   deploy:
     runs-on: ubuntu-latest
@@ -73,4 +70,3 @@ jobs:
       with:
         app-name: ${{ env.BACKEND_WEBAPP_DEV }}
         package: .
-    

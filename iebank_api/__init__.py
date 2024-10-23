@@ -3,6 +3,18 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_cors import CORS
 from dotenv import load_dotenv
 import os
+# Import the `configure_azure_monitor()` function from the
+# `azure.monitor.opentelemetry` package.
+from azure.monitor.opentelemetry import configure_azure_monitor
+
+# Import the tracing api from the `opentelemetry` package.
+from opentelemetry import trace
+
+# Configure OpenTelemetry to use Azure Monitor with the 
+# APPLICATIONINSIGHTS_CONNECTION_STRING environment variable.
+configure_azure_monitor(
+    connection_string="InstrumentationKey=f8c8089f-b240-4e9c-bd28-02a41c17907b;IngestionEndpoint=https://northeurope-2.in.applicationinsights.azure.com/;LiveEndpoint=https://northeurope.livediagnostics.monitor.azure.com/;ApplicationId=dcb1a741-784c-42e4-a33d-9468dc7c046c",
+)
 
 app = Flask(__name__)
 

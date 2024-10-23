@@ -6,3 +6,4 @@ psycopg2-binary==2.9.9
 python-dotenv==0.21.0
 pytest
 pytest-cov
+azure-monitor-opentelemetry
